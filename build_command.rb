@@ -1,8 +1,7 @@
 require 'kramdown'
 require 'stringio'
 
-class BuildCommand
-  attr_reader :posts, :notes, :directory
+module BuildCommand
 
   def initialize()
     puts "Creating temporary directory structure"
