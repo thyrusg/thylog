@@ -17,7 +17,7 @@ module BuildCommand
 
   def generate_index
     source_index_file = "./input/index.md"
-    dest_index_file = "#{@directory}/index.html"
+    dest_index_file = "#{}/index.html"
     output = Kramdown::Document.new(File.read(source_index_file)).to_html
     File.write(dest_index_file, output)
   end
@@ -25,7 +25,7 @@ module BuildCommand
   def generate_single_post(post_path)
     source_post_file = post_path
     file_name = File.basename(post_path)
-    dest_post_file = change_file_extension_to_html("#{@posts}/#{file_name}")
+    dest_post_file = change_file_extension_to_html("#{POSTS_DIRECTORY}/#{file_name}")
 
     output = Kramdown::Document.new(File.read(source_post_file)).to_html
     File.write(dest_post_file, output)
@@ -50,7 +50,7 @@ module BuildCommand
   def generate_single_note(note_path)
     source_note_file = note_path
     file_name = File.basename(note_path)
-    dest_note_file = change_file_extension_to_html("#{@notes}/#{file_name}")
+    dest_note_file = change_file_extension_to_html("#{NOTES_DIRECTORY}/#{file_name}")
 
     output = Kramdown::Document.new(File.read(source_note_file)).to_html
     File.write(dest_note_file, output)
