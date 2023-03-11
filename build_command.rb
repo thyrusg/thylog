@@ -8,6 +8,7 @@ module BuildCommand
   NOTES_DIRECTORY=""
 
   def call
+    setup
     generate_index
     generate_collection_posts
     generate_collection_notes
@@ -70,12 +71,19 @@ module BuildCommand
 
   private
 
-  def generate_tmp_structure
-    ["#{@directory}/posts", "#{@directory}/notes"].each do |dir|
-      FileUtils.mkdir(dir)
+  def setup
+    if File.directory?(DIRECTORY) && File.directory?(POSTS_DIRECTORY) && File.directory?(NOTES_DIRECTORY)
+      puts "Generating blog"
+    else
+      create_directory_structure
     end
   end
 
+  def create_directory_structure
+    puts "Creating temporary directory structure"
+    DIRECTORY = Dir.mktmpdir("thylog")
+    POSTS_DIRECTORY, NOTES_DIRECTORY = generate_tmp_structure
+  end
 
   def generate_tmp_structure
     ["#{DIRECTORY}/posts", "#{DIRECTORY}/notes"].each {|dir| FileUtils.mkdir(dir) }
