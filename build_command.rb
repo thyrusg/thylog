@@ -3,11 +3,9 @@ require 'stringio'
 
 module BuildCommand
 
-  def initialize()
-    puts "Creating temporary directory structure"
-    @directory = Dir.mktmpdir("thylog")
-    @posts, @notes = generate_tmp_structure
-  end
+  DIRECTORY=""
+  POSTS_DIRECTORY=""
+  NOTES_DIRECTORY=""
 
   def call
     generate_index
