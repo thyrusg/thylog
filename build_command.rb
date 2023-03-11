@@ -76,6 +76,11 @@ module BuildCommand
     end
   end
 
+
+  def generate_tmp_structure
+    ["#{DIRECTORY}/posts", "#{DIRECTORY}/notes"].each {|dir| FileUtils.mkdir(dir) }
+  end
+
   def change_file_extension_to_html(path)
     path[-2..-1] = "html"
     path
