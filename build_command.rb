@@ -73,10 +73,8 @@ module BuildCommand
 
   private
 
-  def setup
-    if File.directory?(DIRECTORY) && File.directory?(POSTS_DIRECTORY) && File.directory?(NOTES_DIRECTORY)
-      puts "Generating blog"
-    else
+  def self.setup
+    if @directory.nil?
       create_directory_structure
     end
   end
