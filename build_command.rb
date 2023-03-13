@@ -34,11 +34,7 @@ module BuildCommand
     File.write(dest_post_file, output)
   end
 
-  def generate_collection_posts
-    # the collection post will just be a single HTML page
-    # that has a list of links to all of the other posts
-    # so we need a template that iterates over a collection of 
-    # posts and turns them into links
+  def self.generate_collection_posts
     posts_directory = "./input/posts"
     files = Dir.children(posts_directory)
     io = StringIO.new
