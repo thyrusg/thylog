@@ -50,7 +50,7 @@ module BuildCommand
     puts io.string
   end
 
-  def generate_single_note(note_path)
+  def self.generate_single_note(note_path)
     source_note_file = note_path
     file_name = File.basename(note_path)
     dest_note_file = change_file_extension_to_html("#{@notes}/#{file_name}")
