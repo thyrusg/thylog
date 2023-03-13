@@ -3,7 +3,7 @@ require 'stringio'
 
 module BuildCommand
 
-  def call
+  def self.call
     setup
     generate_index
     generate_collection_posts
@@ -12,20 +12,20 @@ module BuildCommand
     generate_all_notes
   end
 
-  def generate_index
   def self.generate_all_posts
   end
 
   def self.generate_all_notes
   end
 
+  def self.generate_index
     source_index_file = "./input/index.md"
     dest_index_file = "#{@directory}/index.html"
     output = Kramdown::Document.new(File.read(source_index_file)).to_html
     File.write(dest_index_file, output)
   end
 
-  def generate_single_post(post_path)
+  def self.generate_single_post(post_path)
     source_post_file = post_path
     file_name = File.basename(post_path)
     dest_post_file = change_file_extension_to_html("#{@posts}/#{file_name}")
@@ -59,7 +59,7 @@ module BuildCommand
     File.write(dest_note_file, output)
   end
 
-  def generate_collection_notes
+  def self.generate_collection_notes
     notes_directory = "./input/notes"
     files = Dir.children(notes_directory)
     io = StringIO.new
@@ -79,18 +79,17 @@ module BuildCommand
     end
   end
 
-  def create_directory_structure
+  def self.create_directory_structure
     puts "Creating temporary directory structure"
     @directory = Dir.mktmpdir("thylog")
     @posts, @notes = generate_tmp_structure
   end
 
-  def generate_tmp_structure
   def self.generate_tmp_structure
     ["#{@directory}/posts", "#{@directory}/notes"].each {|dir| FileUtils.mkdir(dir) }
   end
 
-  def change_file_extension_to_html(path)
+  def self.change_file_extension_to_html(path)
     path[-2..-1] = "html"
     path
   end
