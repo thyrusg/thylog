@@ -17,6 +17,12 @@ module BuildCommand
   end
 
   def generate_index
+  def self.generate_all_posts
+  end
+
+  def self.generate_all_notes
+  end
+
     source_index_file = "./input/index.md"
     dest_index_file = "#{}/index.html"
     output = Kramdown::Document.new(File.read(source_index_file)).to_html
