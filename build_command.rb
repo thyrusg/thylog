@@ -1,5 +1,6 @@
 require 'kramdown'
 require 'stringio'
+require 'tmpdir'
 
 module BuildCommand
 
