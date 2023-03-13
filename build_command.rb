@@ -3,10 +3,6 @@ require 'stringio'
 
 module BuildCommand
 
-  DIRECTORY=""
-  POSTS_DIRECTORY=""
-  NOTES_DIRECTORY=""
-
   def call
     setup
     generate_index
@@ -24,7 +20,7 @@ module BuildCommand
   end
 
     source_index_file = "./input/index.md"
-    dest_index_file = "#{}/index.html"
+    dest_index_file = "#{@directory}/index.html"
     output = Kramdown::Document.new(File.read(source_index_file)).to_html
     File.write(dest_index_file, output)
   end
@@ -32,7 +28,7 @@ module BuildCommand
   def generate_single_post(post_path)
     source_post_file = post_path
     file_name = File.basename(post_path)
-    dest_post_file = change_file_extension_to_html("#{POSTS_DIRECTORY}/#{file_name}")
+    dest_post_file = change_file_extension_to_html("#{@posts}/#{file_name}")
 
     output = Kramdown::Document.new(File.read(source_post_file)).to_html
     File.write(dest_post_file, output)
@@ -57,7 +53,7 @@ module BuildCommand
   def generate_single_note(note_path)
     source_note_file = note_path
     file_name = File.basename(note_path)
-    dest_note_file = change_file_extension_to_html("#{NOTES_DIRECTORY}/#{file_name}")
+    dest_note_file = change_file_extension_to_html("#{@notes}/#{file_name}")
 
     output = Kramdown::Document.new(File.read(source_note_file)).to_html
     File.write(dest_note_file, output)
@@ -87,12 +83,13 @@ module BuildCommand
 
   def create_directory_structure
     puts "Creating temporary directory structure"
-    DIRECTORY = Dir.mktmpdir("thylog")
-    POSTS_DIRECTORY, NOTES_DIRECTORY = generate_tmp_structure
+    @directory = Dir.mktmpdir("thylog")
+    @posts, @notes = generate_tmp_structure
   end
 
   def generate_tmp_structure
-    ["#{DIRECTORY}/posts", "#{DIRECTORY}/notes"].each {|dir| FileUtils.mkdir(dir) }
+  def self.generate_tmp_structure
+    ["#{@directory}/posts", "#{@directory}/notes"].each {|dir| FileUtils.mkdir(dir) }
   end
 
   def change_file_extension_to_html(path)
