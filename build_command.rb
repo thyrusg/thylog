@@ -35,7 +35,8 @@ module BuildCommand
   def self.generate_index
     source_index_file = "./input/index.md"
     dest_index_file = "#{@directory}/index.html"
-    output = Kramdown::Document.new(File.read(source_index_file)).to_html
+    yaml, file_content = extract_yaml_and_contents(source_index_file)
+    output = Kramdown::Document.new(file_content).to_html
     File.write(dest_index_file, output)
   end
 
@@ -43,8 +44,9 @@ module BuildCommand
     source_post_file = post_path
     file_name = File.basename(post_path)
     dest_post_file = change_file_extension_to_html("#{@posts}/#{file_name}")
+    yaml, file_content = extract_yaml_and_contents(source_post_file)
 
-    output = Kramdown::Document.new(File.read(source_post_file)).to_html
+    output = Kramdown::Document.new(file_content).to_html
     File.write(dest_post_file, output)
   end
 
@@ -53,7 +55,7 @@ module BuildCommand
     files = Dir.children(posts_directory)
     io = StringIO.new
     files.each do |file|
-      metadata = YAML.load_file("#{posts_directory}/#{file}")
+      metadata, file_content = extract_yaml_and_contents(file)
       title = metadata["title"]
       io.puts "<a href=/post/#{file}> #{title} </a>"
     end
@@ -64,8 +66,9 @@ module BuildCommand
     source_note_file = note_path
     file_name = File.basename(note_path)
     dest_note_file = change_file_extension_to_html("#{@notes}/#{file_name}")
+    yaml, file_content = extract_yaml_and_contents(source_note_file)
 
-    output = Kramdown::Document.new(File.read(source_note_file)).to_html
+    output = Kramdown::Document.new(file_content).to_html
     File.write(dest_note_file, output)
   end
 
@@ -74,7 +77,7 @@ module BuildCommand
     files = Dir.children(notes_directory)
     io = StringIO.new
     files.each do |file|
-      metadata = YAML.load_file("#{notes_directory}/#{file}")
+      metadata, file_content = extract_yaml_and_contents(file)
       title = metadata["title"]
       io.puts "<a href=/post/#{file}> #{title} </a>"
     end
