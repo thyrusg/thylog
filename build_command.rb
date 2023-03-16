@@ -14,6 +14,7 @@ module BuildCommand
     generate_collection_notes
     generate_all_posts
     generate_all_notes
+    puts "Files Here: #{@directory}"
   end
 
   def self.cleanup
