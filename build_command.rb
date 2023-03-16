@@ -14,6 +14,10 @@ module BuildCommand
     generate_all_notes
   end
 
+  def self.cleanup
+    FileUtils.remove_entry(@directory)
+  end
+
   def self.generate_all_posts
   end
 
