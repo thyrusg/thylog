@@ -19,9 +19,17 @@ module BuildCommand
   end
 
   def self.generate_all_posts
+    input_posts = Dir.children("./input/posts")
+    input_posts.each do |post|
+      generate_single_post(post)
+    end
   end
 
   def self.generate_all_notes
+    input_notes = Dir.children("./input/notes")
+    input_notes.each do |note|
+      generate_single_note(note)
+    end
   end
 
   def self.generate_index
