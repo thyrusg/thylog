@@ -22,15 +22,19 @@ module BuildCommand
   end
 
   def self.generate_all_posts
-    input_posts = Dir.children("./input/posts")
+    posts_directory = "./input/posts"
+    input_posts = Dir.children(posts_directory)
     input_posts.each do |post|
+      post = "#{posts_directory}/#{post}"
       generate_single_post(post)
     end
   end
 
   def self.generate_all_notes
-    input_notes = Dir.children("./input/notes")
+    notes_directory = "./input/notes"
+    input_notes = Dir.children(notes_directory)
     input_notes.each do |note|
+      note = "#{notes_directory}/#{note}"
       generate_single_note(note)
     end
   end
@@ -58,6 +62,8 @@ module BuildCommand
     files = Dir.children(posts_directory)
     io = StringIO.new
     files.each do |file|
+      file = "#{posts_directory}/#{file}"
+      puts "Generating #{file}"
       metadata, file_content = extract_yaml_and_contents(file)
       title = metadata["title"]
       io.puts "<a href=/post/#{file}> #{title} </a>"
@@ -80,6 +86,7 @@ module BuildCommand
     files = Dir.children(notes_directory)
     io = StringIO.new
     files.each do |file|
+      file = "#{notes_directory}/#{file}"
       metadata, file_content = extract_yaml_and_contents(file)
       title = metadata["title"]
       io.puts "<a href=/post/#{file}> #{title} </a>"
