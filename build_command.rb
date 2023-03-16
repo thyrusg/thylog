@@ -1,6 +1,7 @@
 require 'kramdown'
 require 'stringio'
 require 'tmpdir'
+require 'yaml'
 
 module BuildCommand
 
@@ -91,4 +92,14 @@ module BuildCommand
     path
   end
 
+  def self.extract_yaml_and_contents(file_path)
+    yaml_string = StringIO.new
+    file = File.open(file_path, "r")
+    until $_ == ""
+      yaml_string.puts(file.gets(chomp: true))
+    end
+    content = file.read
+    file.close
+    return YAML.safe_load(yaml_string.string), content
+  end
 end
