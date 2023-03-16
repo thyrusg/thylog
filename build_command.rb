@@ -3,6 +3,8 @@ require 'stringio'
 require 'tmpdir'
 require 'yaml'
 
+#TODO: Pull out the generate_all, generate_collection, generate_single methods into their own subclasses
+
 module BuildCommand
 
   def self.call
