@@ -7,8 +7,8 @@ require 'yaml'
 
 module BuildCommand
 
-  def self.call
-    setup
+  def self.call(directory=nil)
+    setup(directory)
     generate_index
     generate_collection_posts
     generate_collection_notes
