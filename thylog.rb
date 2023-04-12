@@ -30,5 +30,5 @@ when "add"
 when "build"
   BuildCommand.call
 when "output"
-  OutputCommand.call
+  OutputCommand.call(directory: subcommand)
 end
