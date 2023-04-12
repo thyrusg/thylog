@@ -96,8 +96,13 @@ module BuildCommand
 
   private
 
-  def self.setup
-    if @directory.nil?
+  def self.setup(directory=nil)
+    if directory
+      @directory = directory
+      @posts = "#{@directory}/posts"
+      @notes = "#{@directory}/notes"
+      generate_tmp_structure
+    else
       create_directory_structure
     end
   end
