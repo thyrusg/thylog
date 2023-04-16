@@ -93,14 +93,17 @@ module BuildCommand
   def self.generate_collection_notes
     notes_directory = "./input/notes"
     files = Dir.children(notes_directory)
-    io = StringIO.new
+    notes = []
     files.each do |file|
       file = "#{notes_directory}/#{file}"
       metadata, file_content = extract_yaml_and_contents(file)
       title = metadata["title"]
-      io.puts "<a href=/post/#{file}> #{title} </a>"
+      notes << Note.new(title: title, contents: file_content)
     end
-    puts io.string
+    b = binding
+
+    results = NotesHTMLGenerator.new(b).run
+    File.write("#{@directory}/all-notes.html", results)
   end
 
   private
