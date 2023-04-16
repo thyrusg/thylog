@@ -62,14 +62,20 @@ module BuildCommand
     posts_directory = "./input/posts"
     files = Dir.children(posts_directory)
     io = StringIO.new
+    posts = []
     files.each do |file|
       file = "#{posts_directory}/#{file}"
-      puts "Generating #{file}"
+      post = Hash.new
+      post[:filename] = "#{posts_directory}/#{file}"
       metadata, file_content = extract_yaml_and_contents(file)
-      title = metadata["title"]
-      io.puts "<a href=/post/#{file}> #{title} </a>"
+      post[:name] = metadata["title"]
+      posts << post
     end
-    puts io.string
+    b = binding
+
+    results = PostsHTMLGenerator.new(b).run
+    File.write("#{@directory}/all-posts.html", results)
+
   end
 
   def self.generate_single_note(note_path)
