@@ -2,6 +2,7 @@ require 'kramdown'
 require 'stringio'
 require 'tmpdir'
 require 'yaml'
+require './input/all_posts'
 
 #TODO: Pull out the generate_all, generate_collection, generate_single methods into their own subclasses
 
