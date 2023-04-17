@@ -65,15 +65,11 @@ module BuildCommand
   def self.generate_collection_posts
     posts_directory = "./input/posts"
     files = Dir.children(posts_directory)
-    io = StringIO.new
     posts = []
     files.each do |file|
       file = "#{posts_directory}/#{file}"
-      post = Hash.new
-      post[:filename] = "#{posts_directory}/#{file}"
       metadata, file_content = extract_yaml_and_contents(file)
-      post[:name] = metadata["title"]
-      posts << post
+      posts << Post.new(title: metadata["title"], filename: file)
     end
     b = binding
 
