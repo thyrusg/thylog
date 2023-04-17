@@ -5,7 +5,7 @@ require 'yaml'
 require './input/all_posts'
 require './input/all_notes'
 
-#TODO: Pull out the generate_all, generate_collection, generate_single methods into their own subclasses
+#TODO: Pull out the generate_all, generate_collection, generate_single methods into their own classes and files
 
 module BuildCommand
 
