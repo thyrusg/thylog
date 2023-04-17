@@ -10,6 +10,8 @@ require './input/all_notes'
 module BuildCommand
 
   Note = Struct.new('Note', :title, :contents, keyword_init: true)
+  Post = Struct.new('Post', :title, :filename, keyword_init: true)
+
   def self.call(directory=nil)
     setup(directory)
     generate_index
