@@ -17,9 +17,7 @@ class PostsHTMLGenerator
         <h1> Posts </h1>
         <ul>
           <% posts.each do |post| %>
-            <% name = post[:name] %>
-            <% filename = post[:filename] %>
-            <li> <a href="<%= filename %>"> <%= name %>  </a> </li>
+            <li> <a href="<%= post.filename %>"> <%= post.title %>  </a> </li>
           <% end %>
         </ul>
       <body>
