@@ -26,24 +26,6 @@ module BuildCommand
     FileUtils.remove_entry(@directory)
   end
 
-  def self.generate_all_posts
-    posts_directory = "./input/posts"
-    input_posts = Dir.children(posts_directory)
-    input_posts.each do |post|
-      post = "#{posts_directory}/#{post}"
-      generate_single_post(post)
-    end
-  end
-
-  def self.generate_all_notes
-    notes_directory = "./input/notes"
-    input_notes = Dir.children(notes_directory)
-    input_notes.each do |note|
-      note = "#{notes_directory}/#{note}"
-      generate_single_note(note)
-    end
-  end
-
   def self.generate_index
     source_index_file = "./input/index.md"
     dest_index_file = "#{@directory}/index.html"
@@ -76,6 +58,24 @@ module BuildCommand
     results = PostsHTMLGenerator.new(b).run
     File.write("#{@directory}/all-posts.html", results)
 
+  end
+
+  def self.generate_all_posts
+    posts_directory = "./input/posts"
+    input_posts = Dir.children(posts_directory)
+    input_posts.each do |post|
+      post = "#{posts_directory}/#{post}"
+      generate_single_post(post)
+    end
+  end
+
+  def self.generate_all_notes
+    notes_directory = "./input/notes"
+    input_notes = Dir.children(notes_directory)
+    input_notes.each do |note|
+      note = "#{notes_directory}/#{note}"
+      generate_single_note(note)
+    end
   end
 
   def self.generate_single_note(note_path)
